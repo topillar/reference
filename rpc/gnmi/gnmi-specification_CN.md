@@ -77,7 +77,8 @@ control and generation of telemetry streams from a target device to a data
 collection system. The intention is that a single gRPC service definition can
 cover both configuration and telemetry - allowing a single implementation on the
 target, as well as a single NMS element to interact with the device via
-telemetry and configuration RPCs.   
+telemetry and configuration RPCs.  
+
 本文档定义基于[gRPC](http://grpc.io)的协议，此协议用于修改或获取目标设备的配置以及控制和生成从目标设备到数据收集系统的监测流。
 意图使用单一的gRPC服务定义就能覆盖配置和监测---允许目标上的单个实现以及单个NMS元素通过遥测和配置RPC与设备进行交互。
 
@@ -89,6 +90,7 @@ features of the protobuf IDL.  The [protobuf definition of
 gNMI](https://github.com/openconfig/gnmi/blob/master/proto/gnmi/gnmi.proto) is
 maintained in the [openconfig/gnmi](https://github.com/openconfig/gnmi) GitHub
 repository.
+
 gRPC服务定义中的所有消息均定义为[protocol
 buffers]（https://developers.google.com/protocol-buffers/）（特别是proto3）。 
 预期将使用protobuf IDL的相关功能来描述gRPC服务定义。 [gNMI的protobuf定义]（https://github.com/openconfig/gnmi/blob/master/proto/gnmi/gnmi.proto）保留在
@@ -99,27 +101,50 @@ The service defined within this document is assumed to carry payloads that
 contain data instances of [OpenConfig](http://www.openconfig.net/) YANG schemas,
 but can be used for any data with the following characteristics:
 
+本文档中定义的服务假设承载的有效载荷包含[OpenConfig]（http://www.openconfig.net/）YANG模式的数据实例，但可用于具有以下特征的任何数据：
+
 1.  structure can be represented by a tree structure where nodes can be uniquely
     identified by a path consisting of node names, or node names coupled with
     attributes;
+
+    结构可以由树结构表示，其中节点可以由包含节点名称或带有属性的节点名称组成的路径唯一地标识；
+
 1.  values can be serialised into a scalar object.
+
+    值可以序列化为标量对象。
 
 Currently, values may be serialised to a scalar object through encoding as a
 JSON string or a Protobuf type - although the definition of new serialisations
 is possible.
 
+当前，可以通过编码为JSON字符串或Protobuf类型将值序列化为标量对象-尽管可以定义新的序列化。
+
 Throughout this specification the following terminology is used:
+
+在整个说明书中，使用以下术语：
 
 *   *Telemetry* - refers to streaming data relating to underlying
     characteristics of the device - either operational state or configuration.
+
+    *监测，Telemetry*-是指与设备的基础特性有关的流数据-操作状态或配置。
+
 *   *Configuration* - elements within the data schema which are read/write and
     can be manipulated by the client.
+
+    *配置，Configuration*-数据模式中的元素，可以读取/写入，并且可以由客户端进行操作。
+
 *   *Target* - the device within the protocol which acts as the owner of the
     data that is being manipulated or reported on. Typically this will be a
     network device.
+
+     * 目标，Target *-协议中的设备，充当要操纵或报告的数据的所有者。 通常，这将是网络设备。
+
 *   *Client* - the device or system using the protocol described in this
     document to query/modify data on the target, or act as a collector for
     streamed data. Typically this will be a network management system.
+
+
+    *客户端，Client*-使用本文档中描述的协议的设备或系统，以查询/修改目标上的数据，或充当流数据的收集器。 通常，这将是一个网络管理系统。
 
 # 2 Common Message Types and Encodings
 
