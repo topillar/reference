@@ -77,8 +77,10 @@ control and generation of telemetry streams from a target device to a data
 collection system. The intention is that a single gRPC service definition can
 cover both configuration and telemetry - allowing a single implementation on the
 target, as well as a single NMS element to interact with the device via
-telemetry and configuration RPCs.
+telemetry and configuration RPCs.   
 本文档定义基于[gRPC](http://grpc.io)的协议，此协议用于修改或获取目标设备的配置以及控制和生成从目标设备到数据收集系统的上报数据流。
+
+
 All messages within the gRPC service definition are defined as [protocol
 buffers](https://developers.google.com/protocol-buffers/) (specifically proto3).
 gRPC service definitions are expected to be described using the relevant
