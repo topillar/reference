@@ -48,7 +48,7 @@ Paul Borman, Marcus Hines, Carl Lebsack, Chris Morrow, Anees Shaikh, Rob Shakir
      * [3.4.5 修改由属性标识的路径，Modifying Paths Identified by Attributes](#345-modifying-paths-identified-by-attributes)
      * [3.4.6 删除配置，Deleting Configuration](#346-deleting-configuration)
      * [3.4.7 错误处理，Error Handling](#347-error-handling)
-  * [3.5 订阅上报数据更新，Subscribing to Telemetry Updates](#35-subscribing-to-telemetry-updates)   telemetry: 
+  * [3.5 订阅上报数据更新，Subscribing to Telemetry Updates](#35-subscribing-to-telemetry-updates)   telemetry: 遥测，本文译为上报数据或数据上报
      * [3.5.1 管理订阅,Managing Subscriptions](#351-managing-subscriptions)
         * [3.5.1.1 SubscribeRequest消息，The SubscribeRequest Message](#3511-the-subscriberequest-message)
         * [3.5.1.2 SubscriptionList消息，The SubscriptionList Message](#3512-the-subscriptionlist-message)
@@ -69,7 +69,7 @@ Paul Borman, Marcus Hines, Carl Lebsack, Chris Morrow, Anees Shaikh, Rob Shakir
    * [7 Revision History](#7-revision-history)
       * [Notes](#notes)
 
-# 1 Introduction
+# 1 介绍，Introduction
 
 This document defines a [gRPC](http://grpc.io)-based protocol for the
 modification and retrieval of configuration from a target device, as well as the
@@ -78,7 +78,7 @@ collection system. The intention is that a single gRPC service definition can
 cover both configuration and telemetry - allowing a single implementation on the
 target, as well as a single NMS element to interact with the device via
 telemetry and configuration RPCs.
-
+本文档定义基于[gRPC](http://grpc.io)的协议，此协议用于修改或获取目标设备的配置以及控制和生成从目标设备到数据收集系统的上报数据流。
 All messages within the gRPC service definition are defined as [protocol
 buffers](https://developers.google.com/protocol-buffers/) (specifically proto3).
 gRPC service definitions are expected to be described using the relevant
