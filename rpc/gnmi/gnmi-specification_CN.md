@@ -48,7 +48,7 @@ Paul Borman, Marcus Hines, Carl Lebsack, Chris Morrow, Anees Shaikh, Rob Shakir
      * [3.4.5 修改由属性标识的路径，Modifying Paths Identified by Attributes](#345-modifying-paths-identified-by-attributes)
      * [3.4.6 删除配置，Deleting Configuration](#346-deleting-configuration)
      * [3.4.7 错误处理，Error Handling](#347-error-handling)
-  * [3.5 订阅上报数据更新，Subscribing to Telemetry Updates](#35-subscribing-to-telemetry-updates)   telemetry: 遥测，本文译为上报数据或数据上报
+  * [3.5 订阅监测更新，Subscribing to Telemetry Updates](#35-subscribing-to-telemetry-updates)   telemetry: 遥测，本文译为监测或数据上报
      * [3.5.1 管理订阅,Managing Subscriptions](#351-managing-subscriptions)
         * [3.5.1.1 SubscribeRequest消息，The SubscribeRequest Message](#3511-the-subscriberequest-message)
         * [3.5.1.2 SubscriptionList消息，The SubscriptionList Message](#3512-the-subscriptionlist-message)
@@ -59,10 +59,10 @@ Paul Borman, Marcus Hines, Carl Lebsack, Chris Morrow, Anees Shaikh, Rob Shakir
            * [3.5.1.5.2 STREAM，订阅，STREAM Subscriptions](#35152-stream-subscriptions)
            * [3.5.1.5.3 POLL订阅，POLL Subscriptions](#35153-poll-subscriptions)
         * [3.5.1.6 订阅中客户端定义的别名，Client-defined Aliases within a Subscription](#3516-client-defined-aliases-within-a-subscription)
-     * [3.5.2 发送上报数据更新，Sending Telemetry Updates](#352-sending-telemetry-updates)
-        * [3.5.2.1 捆绑上报数据更新，Bundling of Telemetry Updates](#3521-bundling-of-telemetry-updates)
+     * [3.5.2 发送监测更新，Sending Telemetry Updates](#352-sending-telemetry-updates)
+        * [3.5.2.1 捆绑监测更新，Bundling of Telemetry Updates](#3521-bundling-of-telemetry-updates)
         * [3.5.2.2 订阅中的目标定义别名，Target-defined Aliases within a Subscription](#3522-target-defined-aliases-within-a-subscription)
-        * [3.5.2.3 发送上报数据更新，Sending Telemetry Updates](#3523-sending-telemetry-updates)
+        * [3.5.2.3 发送监测更新，Sending Telemetry Updates](#3523-sending-telemetry-updates)
    * [4 Appendix: Current Protobuf Message and Service Specification](#4-appendix-current-protobuf-message-and-service-specification)
    * [5 Appendix: Current Outstanding Issues/Future Features](#5-appendix-current-outstanding-issuesfuture-features)
    * [6 Copyright](#6-copyright)
@@ -78,7 +78,8 @@ collection system. The intention is that a single gRPC service definition can
 cover both configuration and telemetry - allowing a single implementation on the
 target, as well as a single NMS element to interact with the device via
 telemetry and configuration RPCs.   
-本文档定义基于[gRPC](http://grpc.io)的协议，此协议用于修改或获取目标设备的配置以及控制和生成从目标设备到数据收集系统的上报数据流。
+本文档定义基于[gRPC](http://grpc.io)的协议，此协议用于修改或获取目标设备的配置以及控制和生成从目标设备到数据收集系统的监测流。
+意图使用单一的gRPC服务定义就能覆盖配置和监测---允许目标上的单个实现以及单个NMS元素通过遥测和配置RPC与设备进行交互。
 
 
 All messages within the gRPC service definition are defined as [protocol
@@ -88,6 +89,11 @@ features of the protobuf IDL.  The [protobuf definition of
 gNMI](https://github.com/openconfig/gnmi/blob/master/proto/gnmi/gnmi.proto) is
 maintained in the [openconfig/gnmi](https://github.com/openconfig/gnmi) GitHub
 repository.
+gRPC服务定义中的所有消息均定义为[protocol
+buffers]（https://developers.google.com/protocol-buffers/）（特别是proto3）。 
+预期将使用protobuf IDL的相关功能来描述gRPC服务定义。 [gNMI的protobuf定义]（https://github.com/openconfig/gnmi/blob/master/proto/gnmi/gnmi.proto）保留在
+[openconfig / gnmi]（https://github.com/ openconfig / gnmi）中维护。
+
 
 The service defined within this document is assumed to carry payloads that
 contain data instances of [OpenConfig](http://www.openconfig.net/) YANG schemas,
